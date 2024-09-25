@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="after">
+                <field name="picking_ids" widget="one2many_list" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_deliveries" type="object" class="oe_stat_button" icon="fa-truck"
+                            invisible="picking_count == 0" groups="stock.group_stock_user">
+                        <div class="o_stat_info">
+                            <field name="picking_count" widget="statinfo" string="Delivery"/>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_view_deliveries"
+                        type="object" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
